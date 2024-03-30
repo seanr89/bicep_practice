@@ -12,12 +12,21 @@ if [[ $# -ne 2 ]]; then
     exit 1
 fi
 
-# az deployment group create --resource-group $1 --template-file ./main.bicep --parameters location=$2
 az deployment sub create \
+  --what-if \
   --name demoSubDeployment \
   --location northeurope \
   --template-file resourceGroup.bicep \
   --parameters resourceGroupName=$1 resourceGroupLocation=$2
+
+# az deployment group create --resource-group $1 --template-file ./main.bicep --parameters location=$2
+# az deployment sub create \
+#   --name demoSubDeployment \
+#   --location northeurope \
+#   --template-file resourceGroup.bicep \
+#   --parameters resourceGroupName=$1 resourceGroupLocation=$2
+
 echo "Complete!"
 
 # way to run ./run_cli.sh exampleRG northeurope  
+# test to run 
