@@ -2,7 +2,7 @@
 
 echo "Subscription Selection"
 
-az account set --subscription 51
+az account set --subscription
 
 az resource list --output table
 
