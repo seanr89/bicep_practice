@@ -25,28 +25,46 @@ resource serverName_resource 'Microsoft.DBforPostgreSQL/flexibleServers@2023-03-
     version: version
     administratorLogin: administratorLogin
     administratorLoginPassword: administratorLoginPassword
+    createMode: 'Default'
     // network: {
     //   delegatedSubnetResourceId: (empty(virtualNetworkExternalId) ? json('null') : json('\'${virtualNetworkExternalId}/subnets/${subnetName}\''))
     //   privateDnsZoneArmResourceId: (empty(virtualNetworkExternalId) ? json('null') : privateDnsZoneArmResourceId)
     // }
-    highAvailability: {
-      mode: haMode
-    }
+    // highAvailability: {
+    //   mode: haMode
+    // }
     storage: {
       storageSizeGB: skuSizeGB
+      tier: 'P4'
+      autoGrow: 'Disabled'
     }
     backup: {
       backupRetentionDays: 7
       geoRedundantBackup: 'Disabled'
     }
-    availabilityZone: availabilityZone
+  }
+  resource firewallAzure 'firewallRules' = {
+    name: 'allow-all-azure-internal-IPs'
+    properties: {
+        startIpAddress: '0.0.0.0'
+        endIpAddress: '0.0.0.0'
+    }
   }
 }
 
-resource symbolicname 'Microsoft.DBforPostgreSQL/flexibleServers/firewallRules@2023-03-01-preview' = {
-  name: 'ipRules/AllowAll'
-  properties: {
-    endIpAddress: '255.255.255.255'
-    startIpAddress: '0.0.0.0'
-  }
-}
+// resource symbolicname 'Microsoft.DBforPostgreSQL/flexibleServers/firewallRules@2023-03-01-preview' = {
+//   name: 'ipRules/AllowAll'
+//   properties: {
+//     endIpAddress: '255.255.255.255'
+//     startIpAddress: '0.0.0.0'
+//   }
+// }
+
+// resource dbServerMaxConnections 'Microsoft.DBforPostgreSQL/flexibleServers/configurations@2021-06-01' = {
+//   parent: dbServer
+//   name: 'max_connections'
+//   properties: {
+//     value: '100'
+//     source: 'user-override'
+//   }
+// }
