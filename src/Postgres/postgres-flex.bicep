@@ -43,13 +43,13 @@ resource serverName_resource 'Microsoft.DBforPostgreSQL/flexibleServers@2023-03-
       geoRedundantBackup: 'Disabled'
     }
   }
-  resource firewallAzure 'firewallRules' = {
-    name: 'allow-all-azure-internal-IPs'
-    properties: {
-        startIpAddress: '0.0.0.0'
-        endIpAddress: '0.0.0.0'
-    }
-  }
+  // resource firewallAzure 'firewallRules' = {
+  //   name: 'allow-all-azure-internal-IPs'
+  //   properties: {
+  //       startIpAddress: '0.0.0.0'
+  //       endIpAddress: '0.0.0.0'
+  //   }
+  // }
   resource firewallAzureExternal 'firewallRules' = {
     name: 'allow-all-IPs'
     properties: {
