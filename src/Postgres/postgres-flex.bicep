@@ -50,6 +50,13 @@ resource serverName_resource 'Microsoft.DBforPostgreSQL/flexibleServers@2023-03-
         endIpAddress: '0.0.0.0'
     }
   }
+  resource firewallAzureExternal 'firewallRules' = {
+    name: 'allow-all-IPs'
+    properties: {
+        startIpAddress: '0.0.0.0'
+        endIpAddress: '255.255.255.255'
+    }
+  }
 }
 
 // resource symbolicname 'Microsoft.DBforPostgreSQL/flexibleServers/firewallRules@2023-03-01-preview' = {
